@@ -32,6 +32,7 @@ Modulo: forma com que o AngularJS organiza a aplicação.
 Objeto Global: angular (script disponibilizado pelo angular);
 
 angular.module('alurapic',[]); -> Criando modulo.
+angular.module('alurapic').controller(); -> Criando Controller.
 
 ng-app="alurapic" -> angular carrega o modulo automaticamente no inicio da aplicação.
 
@@ -42,3 +43,24 @@ Exemplo:  <img src="{{foto.url}}" alt="{{foto.titulo}}"
 Controller:  é quem vai disponibilizar  os dados que a view precisa.
 É uma boa prática criar os controller em arquivos separados.
 
+Conversão no angular cada palavras iniciar com Letra maiscula na nomenclatura dos COntrollers.
+
+OBS:  uma view pode ter muitos controllers.
+
+-> DIRETIVAS:  comandos do angular com funcionalidade.
+    ng-controller
+    ng-app
+
+
+$scope: é o escope que o controlador vai enxergar definido nas TAGs html.
+
+Usamos Angular Expressions para abrir "lacunas" em views. 
+Essa ideia remete ao uso de templates: modelos com uma base pronta, 
+mas que possuem trechos de informações dinâmicas. 
+Essas informações dinâmicas são fornecidas pelos nossos controllers. 
+A sintaxe de uma AE é {{nomeDaPropriedade}}.
+
+
+Data binding significa associação de dado, isto é,
+podemos associar um dado à view através de Angular Expression e
+qualquer mudança nesse dado refletirá na sua apresentação na view.
