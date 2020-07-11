@@ -1,0 +1,14 @@
+Criando os proprios componetes.
+
+-> o modulo AluraPic é o primeiro modulo carregado na aplicação definido em ng-app,
+nesse modulo é inserido outros modulo que serão utilizados.
+
+angular.module('minhasDiretivas',[]);  - definição de modulo / [] -> dependencias
+
+meuPainel -> definição da minhasDiretivas
+usando <meu-painel>
+
+DDO: 
+
+Transclusão: quando uma diretica tem um elemento filho e precisa ser mostrado.
+ddd.transclude = true;
