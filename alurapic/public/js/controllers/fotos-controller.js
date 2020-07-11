@@ -1,17 +1,22 @@
-angular.module('alurapic').controller('FotosController',function($scope){
+angular.module('alurapic').controller('FotosController',function($scope, $http){
   
-    $scope.fotos = [
-        {
-        titulo: 'Leao 1',
-        url: 'https://exame.com/wp-content/uploads/2019/08/gettyimages-1041987488.jpg'
-        },
-        {
-            titulo: 'Leao 2',
-            url: 'https://exame.com/wp-content/uploads/2019/08/gettyimages-1041987488.jpg'
-        },
-        {
-            titulo: 'Leao 3',
-            url: 'https://exame.com/wp-content/uploads/2019/08/gettyimages-1041987488.jpg'
-        }
-    ]
+    $scope.fotos = [];
+
+    
+     $http.get('v1/fotos').sucess(function(fotos){
+        $scope.fotos = fotos;
+     }).error(function(erro){
+        console.log(erro);
+     });
+
+    /*
+    promise.then(function(retorno){
+       $scope.fotos = retorno.data; 
+    }).catch(function(error){
+        console.log(error)
+    });
+    */
+
+
+
 });
