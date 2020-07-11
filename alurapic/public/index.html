@@ -17,34 +17,17 @@
                 <h1 class="text-center">Alurapic</h1>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>{{foto1.titulo}}</h3>
-                </div>
-                <div class="panel-body">
-                    <img  class="img-responsive center-block"src="{{foto1.url}}" alt="{{foto1.titulo}}">
-                </div>
-            </div>  <!-- fim do panel -->
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>{{foto2.titulo}}</h3>
-                </div>
-                <div class="panel-body">
-                    <img  class="img-responsive center-block"src="{{foto2.url}}" alt="{{foto2.titulo}}">
-                </div>
-            </div>  <!-- fim do panel -->
+                <div ng-repeat="foto in fotos" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>{{foto.titulo}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img  class="img-responsive center-block"src="{{foto.url}}" alt="{{foto.titulo}}">
+                    </div>
+                </div>  <!-- fim do panel -->
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>{{foto3.titulo}}</h3>
-                </div>
-                <div class="panel-body">
-                    <img  class="img-responsive center-block"src="{{foto3.url}}" alt="{{foto3.titulo}}">
-                </div>
-            </div>  <!-- fim do panel -->
-
-            
+          
 
 
         </div> <!-- fim container -->        
