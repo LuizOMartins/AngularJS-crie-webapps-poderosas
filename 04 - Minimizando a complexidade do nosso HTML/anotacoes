@@ -8,7 +8,13 @@ angular.module('minhasDiretivas',[]);  - definição de modulo / [] -> dependenc
 meuPainel -> definição da minhasDiretivas
 usando <meu-painel>
 
-DDO: 
+DDO:   Directive Definition Object
 
 Transclusão: quando uma diretica tem um elemento filho e precisa ser mostrado.
 ddd.transclude = true;
+
+
+Diretivas são componentes reutilizáveis que podem encapsular marcação e comportamento. 
+São criadas sempre dentro de um módulo através da função .directive. 
+Toda diretiva deve sempre retornar um DDO (Directive Definition Object) configurado para que 
+funcione

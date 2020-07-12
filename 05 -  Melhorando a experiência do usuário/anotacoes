@@ -1,0 +1,15 @@
+two-way data binding: Diferente da Angular Expression (AE) que é somente leitura (one-way data binding),
+a diretiva ng-model permite ler e propagar alterações de dados a partir da view.
+
+
+Inserindo filtro na lista:
+1° Inserir no  ng-model no input 
+ng-model="nome" 
+
+2°  Inserir paramtrização de filtro 
+ ng-repeat="foto in fotos | filter:filtro"
+
+3° Cria variavel no controller que estive no Escopo.
+    $scope.filtro = '';
+
+
