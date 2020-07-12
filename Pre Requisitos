@@ -1,0 +1,272 @@
+Teste conhecimentos Java Script: conhecimento de JavaScript.
+
+Function hoisting: todas as declarações de funções são movidas para o topo, sendo assim, quando chamamos.
+
+____________________________________
+
+
+Declaração de Função
+Uma Função tem obrigatoriamente um nome, logo sua sintaxe seria basicamente assim:
+
+
+function exibeNome( nome ){
+  console.log("Olá " + nome);
+}
+
+
+____________________________________
+
+Função como expressão:
+
+var exibeAlerta = function() {
+    alert('Sucesso!');
+};
+A variável exibeAlerta recebe como valor uma função anônima.
+
+OBS: As declarações de função são carregadas antes de qualquer código ser executado.
+Expressões de função carregam somente quando o interpretador atinge essa linha de código.
+____________________________________
+
+O codigo funcionaria ?
+var pessoa = {};
+pessoa.fala = function() {
+      alert('Olá');
+};
+
+Correto! Podemos adicionar propriedades dinamicamente em um objeto, inclusive funções, como no exemplo.
+____________________________________
+
+Função como parâmetro: 
+
+function calculaImposto(valor, acao) {
+     return acao(valor);
+}
+
+
+Usando a função calculaImposto:
+
+var imposto1 = calculaImposto(200, function(valor) {
+     return valor * 0.5;
+});
+alert(imposto1);
+
+var imposto2 = calculaImposto(200, function(valor) {
+     return valor * 0.1;
+});
+alert(imposto2);
+
+-> 
+100 e 20
+
+O valor base para o cálculo nas duas situações é 200. 
+No imposto1 aplica-se a função com taxa de 50% (return valor * 0.5;), 
+enquanto imposto2 aplica a função com taxa de 10% (return valor * 0.1;). 
+Sendo assim, o valor do primeiro imposto é 100 e do segundo é 20.
+
+________________________________________
+
+
+
+AJAX = Asynchronous JavaScript And XML.
+AJAX is not a programming language.
+AJAX just uses a combination of:
+--A browser built-in XMLHttpRequest object (to request data from a web server)
+--JavaScript and HTML DOM (to display or use the data)
+-Um XMLHttpRequestobjeto interno do navegador (para solicitar dados de um servidor da web)
+-JavaScript e HTML DOM (para exibir ou usar os dados)
+
+
+Assincrono: está desconectada do tempo e do espaço. 
+Ou seja, o comunicador e o receptor podem manter relacionamento na medida em que tenham tempo disponível.
+Alguns exemplos de ferramentas de comunicação assíncrona são: 
+whatsapp e aplicativos de mensagens, e-mails, chats de texto, SMS, etc.
+Sincrono: emitidas por uma pessoa são imediatamente recebidas e respondidas por outras pessoas.
+
+
+____________________________________
+ 
+
+
+Função de call-back: callback é uma função passada como parâmetro para outra função. 
+pre-requisitos:
+- JavaScript é uma linguagem executada assincronamente; 
+- Na programação assíncrona, 
+callbacks são passadas como funções para serem executadas após um certo evento.
+
+Exemplo:
+
+let salarioBruto = 3000;
+let salarioLiquido;
+
+getSalario(salarioBruto, (resultado) => {
+    salarioLiquido = resultado;
+    console.log(`O salário liquido é ${salarioLiquido}`);
+});
+
+function getSalario(salarioBruto, callback)
+{
+    let liquido = 0;
+    const inss = salarioBruto * 0.11;
+    const vr = salarioBruto * 0.05;
+    const vt = salarioBruto * 0.06;
+    const fgts = salarioBruto * 0.15;
+    const descontos = inss + vr + vt + fgts;
+    liquido = salarioBruto - descontos;
+    
+    return callback(liquido);
+}
+
+--> 
+Então, a função getSalario recebe um valor de salário bruto no primeiro parâmetro: getSalario(salarioBruto, …
+Obtém o salário líquido subtraindo os descontos calculados: liquido = salarioBruto - descontos;
+e, então, executa a função recebida no segundo parâmetro: return callback(liquido);
+_______________________________
+
+
+Arrow Functions: 
+
+1°
+const sum = (num1, num2) => {
+  return num1 + num2;
+}
+
+2°
+const sum = (num1, num2) => num1 + num2;
+
+
+_______________________________
+
+Promesi:  Promises são um padrão de 
+desenvolvimento que visam representar a conclusão de operações assíncronas.
+- definem uma ação que vai ser executada no futuro, ou seja, ela pode ser resolvida (com sucesso) ou rejeitada (com erro).
+
+luxo Assíncrono
+O JavaScript por si só é tido como uma linguagem que tem que lidar com várias chamadas e 
+execuções que não acontecem no momento que o programador executou o código, por exemplo, 
+a leitura de um arquivo no NodeJS de forma síncrona:
+
+const fs = require('fs')
+
+const texto = fs.readFileSync('./arquivo.txt')
+
+
+Esta função é uma função síncrona, ou seja, quando a chamarmos, 
+vamos pausar o que quer que esteja sendo executado e vamos realizar este processamento,
+depois vamos retornar o valor final.
+
+
+Como queremos que nossas operações e nosso código rodem o mais rápido possível, queremos paralelizar o máximo de ações que conseguirmos. Ações de leitura de arquivos são consideradas lentas porque I/O é sempre mais lento que processamento em memória,
+vamos paralelizar a nossa função dizendo que queremos ler o arquivo de forma assíncrona:
+
+ const fs = require('fs')
+
+fs.readFile('./arquivo.txt', (err, texto) => {
+  // fazer alguma coisa com o arquivo
+})
+
+
+Agora o que estamos fazendo é passando um callback para a função readFile que deverá ser executado
+ após a leitura do arquivo. Em essência — e abstraindo muito a funcionalidade 
+ — o que a função readFile faz é algo assim:
+ function readFile (path, callback) {
+  if (!path) throw new Error('Path is required')
+  
+  // Leitura do arquivo de forma assíncrona
+  // Criando err como variável de erros e data como variável com o conteúdo
+  
+  callback(err, dados)
+}
+
+Por que Promises?
+
+Se já tínhamos uma implementação de funções assíncronas, por que houve a preocupação de criar todo
+ um novo padrão para podermos ter exatamente a mesma coisa? A questão aqui é mais a organização do
+  código do que a funcionalidade.
+Imagine que temos uma função que lê um arquivo, após este arquivo ser lido ela precisa escrever em
+ um outro arquivo e ai executar outra função assíncrona. Nosso código ficaria assim:
+
+const fs = require('fs')
+
+fs.readFile('./arquivo.txt', (err, dados) => {
+  if (err) throw new Error(err)
+  fs.writeFile('./outroarquivo.txt', dados, (err) => {
+    if (err) throw new Error(err)
+    outraFuncaoAssincrona((err, dados) => {
+      const x = dados.split(',')
+      const y = x.map((e) => e.toUpperCase())
+      maisUmaFuncaoAssincrona(y, (err, resultado) => {
+        // continua
+      })
+    })
+  })
+})
+
+As Promises foram um passo seguinte para que pudéssemos melhorar um pouco a execução do nosso código. 
+Primeiramente vamos melhorar nosso código anterior, podemos extrair as funções posteriores para 
+outros blocos, melhorando um pouco a nossa visualização:
+
+const fs = require('fs')
+
+function callbackRead(err, dados) {
+  if (err) throw new Error(err)
+  fs.writeFile('./outroarquivo.txt', dados, callbackWrite)
+}
+
+function callbackWrite (err) {
+  if (err) throw new Error(err)
+  outraFuncaoAssincrona(callbackAsync1)
+}
+
+function callbackAsync1 (err, dados) {
+  const x = dados.split(',')
+  const y = x.map((e) => e.toUpperCase())
+  maisUmaFuncaoAssincrona(y, callbackAsync2)
+}
+
+function callbackAsync2 (err, resultado) {
+  // ...
+}
+
+fs.readFile('./arquivo.txt', callbackRead)
+
+Agora o problema é outro, estamos encadeando nossas funções e fica muito difícil entender todo o
+ fluxo porque temos que passar em várias partes do código. Com Promises, nosso código ficaria assim:
+
+const fs = require('fs')
+const { promisify } = require('util')
+const readFilePromise = promisify(fs.readFile)
+const writeFilePromise = promisify(fs.writeFile)
+
+function outraFuncaoAssincrona (parametro) {
+  return new Promise((resolve, reject) => {
+    resolve(parametro.split(','))
+  })
+}
+
+function maisUmaFuncaoAssincrona (parametro) {
+  return new Promise((resolve, reject) => {
+    // continua
+  })
+}
+
+readFilePromise('./arquivo.txt')
+  .then((err, dados) => {
+    writeFilePromise('./outroarquivo.txt', dados)
+    return dados
+  })
+  .then(outraFuncaoAssincrona)
+  .then(maisUmaFuncaoAssincrona)
+  .catch(console.error)
+
+
+____________________________________
+
+
+Referência para complementas os estudos:
+
+http://www.w3bai.com/pt/angular/angular_modules.html
+
+
+https://www.it-swarm.dev/pt/angularjs/melhores-praticas-do-angularjs-para-declaracao-de-modulo/1043153996/
+
+https://docs.angularjs.org/tutorial/step_03

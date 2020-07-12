@@ -16,7 +16,6 @@ function DmeuPainel(){
     return ddo;
 }
 
-
 function DminhaFoto(){
     var ddo = {};
     ddo.restric = "AE";

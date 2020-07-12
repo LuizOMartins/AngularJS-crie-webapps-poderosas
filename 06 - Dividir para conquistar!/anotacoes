@@ -1,6 +1,11 @@
 SPA: singe page applications.
  
- 
 - Configurar back-end spring para     $locationProvider.html5Mode(true); ? <base href="/">
 
 Sistema de rotas: direciona as paginas na SPA.
+
+routeProvider:
+
+locationProvider:
+
+

@@ -1,0 +1,15 @@
+Preparando o ambiente:
+
+- Ter o node instalado.
+Entrar no diretorio do projeto e npm install. (projeto que ja contem todos os endpoint que o front-end irá utilizar)
+
+
+ATENÇÃO USUÁRIOS DE WINDOWS: se por acaso mensagens de erro forem exibidas, procure pelo texto npm ERR! self signed certificate. Se ele existir, isso indica um problema no certificado do seu roteador (proxy). Não se preocupe, basta rodar o comando no terminal npm set strict-ssl false que resolvera este problema.
+
+Em menos de um minuto, todas as dependências para rodar o servidor terão sido baixadas. Para subi-lo utilizamos o comando:
+
+npm start
+Repare que seu terminal ficará aguardando indefinidamente, sinal de que o servidor está escutando. Agora é só abrir o navegador no endereço http://localhost:3000. Uma página de boas-vindas será exibida.
+
+Curiosidade
+O projeto Alurapic utiliza Express para criar endpoints REST e o NeDB, um banco de dados totalmente feito em Node.js e que não necessita qualquer configuração especial.
