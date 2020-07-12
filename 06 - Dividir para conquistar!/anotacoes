@@ -1,0 +1,6 @@
+SPA: singe page applications.
+ 
+ - Como fazer SEO em SPA ?
+- Configurar back-end spring para     $locationProvider.html5Mode(true); ? <base href="/">
+
+Sistema de rotas: direciona as paginas na SPA.
