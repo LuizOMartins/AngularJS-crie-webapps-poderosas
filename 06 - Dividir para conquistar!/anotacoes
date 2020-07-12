@@ -4,8 +4,16 @@ SPA: singe page applications.
 
 Sistema de rotas: direciona as paginas na SPA.
 
-routeProvider:
+locationProvider :
+- Use $locationProviderpara configurar como os caminhos de link direto do aplicativo são armazenados.
 
-locationProvider:
+O $locationserviço analisa o URL na barra de endereços do navegador (com base em ) e disponibiliza o URL 
+para o seu aplicativo. As alterações no URL na barra de endereços são refletidas no serviço e as alterações
+ são refletidas na barra de endereços do navegador.window.location$location$location
 
+
+- routeProvider
+- Requer que o ngRoute módulo seja instalado.
+- Adiciona uma nova definição de rota ao $routeserviço.
+- O ngRoutemódulo roteia seu aplicativo para páginas diferentes sem recarregar o aplicativo inteiro.
 
