@@ -36,6 +36,10 @@ pessoa.fala = function() {
 Correto! Podemos adicionar propriedades dinamicamente em um objeto, inclusive funções, como no exemplo.
 ____________________________________
 
+Função anonima: função sem nome.
+
+____________________________________
+
 Função como parâmetro: 
 
 function calculaImposto(valor, acao) {
@@ -87,7 +91,9 @@ ____________________________________
  
 
 
-Função de call-back: callback é uma função passada como parâmetro para outra função. 
+Função de call-back: 
+- callback é uma função passada como parâmetro para outra função. 
+- Uma função de callback é basicamente uma função executada após outra. 
 pre-requisitos:
 - JavaScript é uma linguagem executada assincronamente; 
 - Na programação assíncrona, 
@@ -138,24 +144,28 @@ _______________________________
 
 Promesi:  Promises são um padrão de 
 desenvolvimento que visam representar a conclusão de operações assíncronas.
-- definem uma ação que vai ser executada no futuro, ou seja, ela pode ser resolvida (com sucesso) ou rejeitada (com erro).
+- definem uma ação que vai ser executada no futuro, ou seja, ela pode ser resolvida (com sucesso) ou
+ rejeitada (com erro).
 
-luxo Assíncrono
+Fluxo Assíncrono:
 O JavaScript por si só é tido como uma linguagem que tem que lidar com várias chamadas e 
 execuções que não acontecem no momento que o programador executou o código, por exemplo, 
 a leitura de um arquivo no NodeJS de forma síncrona:
 
-const fs = require('fs')
+const fs = require('fs');
 
 const texto = fs.readFileSync('./arquivo.txt')
-
 
 Esta função é uma função síncrona, ou seja, quando a chamarmos, 
 vamos pausar o que quer que esteja sendo executado e vamos realizar este processamento,
 depois vamos retornar o valor final.
 
 
-Como queremos que nossas operações e nosso código rodem o mais rápido possível, queremos paralelizar o máximo de ações que conseguirmos. Ações de leitura de arquivos são consideradas lentas porque I/O é sempre mais lento que processamento em memória,
+--------------
+
+Como queremos que nossas operações e nosso código rodem o mais rápido possível, queremos paralelizar o
+ máximo de ações que conseguirmos. Ações de leitura de arquivos são consideradas lentas porque I/O 
+ é sempre mais lento que processamento em memória,
 vamos paralelizar a nossa função dizendo que queremos ler o arquivo de forma assíncrona:
 
  const fs = require('fs')
@@ -164,10 +174,12 @@ fs.readFile('./arquivo.txt', (err, texto) => {
   // fazer alguma coisa com o arquivo
 })
 
+--------------
 
 Agora o que estamos fazendo é passando um callback para a função readFile que deverá ser executado
  após a leitura do arquivo. Em essência — e abstraindo muito a funcionalidade 
  — o que a função readFile faz é algo assim:
+
  function readFile (path, callback) {
   if (!path) throw new Error('Path is required')
   
@@ -177,6 +189,8 @@ Agora o que estamos fazendo é passando um callback para a função readFile que
   callback(err, dados)
 }
 
+
+--------------
 Por que Promises?
 
 Se já tínhamos uma implementação de funções assíncronas, por que houve a preocupação de criar todo
@@ -201,6 +215,7 @@ fs.readFile('./arquivo.txt', (err, dados) => {
   })
 })
 
+--------------
 As Promises foram um passo seguinte para que pudéssemos melhorar um pouco a execução do nosso código. 
 Primeiramente vamos melhorar nosso código anterior, podemos extrair as funções posteriores para 
 outros blocos, melhorando um pouco a nossa visualização:
@@ -228,6 +243,7 @@ function callbackAsync2 (err, resultado) {
 }
 
 fs.readFile('./arquivo.txt', callbackRead)
+--------------
 
 Agora o problema é outro, estamos encadeando nossas funções e fica muito difícil entender todo o
  fluxo porque temos que passar em várias partes do código. Com Promises, nosso código ficaria assim:
@@ -270,3 +286,28 @@ http://www.w3bai.com/pt/angular/angular_modules.html
 https://www.it-swarm.dev/pt/angularjs/melhores-praticas-do-angularjs-para-declaracao-de-modulo/1043153996/
 
 https://docs.angularjs.org/tutorial/step_03
+
+
+###########################################
+
+Afinal, como lidar quando um callback também possui um callback? E se esse callback do callback possuir
+ outro callback? O exemplo abaixo em JavaScript puro ilustra um pouco isso, em apenas 4 níveis:
+
+
+window.addEventListener('load', () => { 
+   document.getElementById('button').addEventListener('click', () => { 
+      setTimeout(() => { 
+         items.forEach(item => { 
+            //seu código aqui 
+         }) 
+      }, 2000) 
+   }) 
+})
+Em uma tecnologia assíncrona como Node.js, isso não é algo incomum e o uso de callbacks em cenários 
+complexos acaba se tornando um pesadelo rapidamente.
+
+A partir da versão 6 do ECMAScript (ES6, de 2015), foi introduzido Promises, 
+uma nova e mais elegante maneira de lidar com o encadeamento de funções assíncronas 
+(async function chaining) e vai ser alvo de estudo neste artigo.
+
+###########################################
