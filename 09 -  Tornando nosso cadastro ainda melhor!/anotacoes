@@ -1,0 +1,10 @@
+Hierarquia de controllers.
+
+-> Problema  na validação do formulário, com o CombBox. - Corrigido.
+
+<!-- ng-options="grupos._id as (grupo.nome | uppercase) for grupo in grupos" > -->
+
+ ng-options="grupo._id as grupo.nome for grupo in grupos">
+
+-> Reforçar criações de Diretivas Personalizadas:
+

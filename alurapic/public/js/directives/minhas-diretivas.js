@@ -1,6 +1,8 @@
 
 angular.module('minhasDiretivas',[])
-.directive('meuPainel',DmeuPainel).directive('minhaFoto',DminhaFoto);
+.directive('meuPainel',DmeuPainel)
+.directive('minhaFoto',DminhaFoto)
+.directive('meuBotaoPerigo',meuBotaoPerigo);
 
 function DmeuPainel(){
     var ddo = {};
@@ -29,6 +31,21 @@ function DminhaFoto(){
     };
 
     ddo.template = '<img class="img-responsive center-block" src="{{url}}" alt="{{titulo}}">';
+
+    return ddo;
+}
+
+
+function meuBotaoPerigo (){
+    var ddo =  {};
+
+    ddo.restric = "E";
+    ddo.scope =  {
+        nome: '@',
+        acao: '&'
+    };
+
+    ddo.template = '<button ng-click="acao(foto)" class="btn btn-danger btn-block">{{nome}}</button>';
 
     return ddo;
 }
