@@ -1,0 +1,32 @@
+as funções de $http (get, post, put, delete) devolvem uma promessa, no inglês promise. Uma promise contém o resultado futuro de uma ação. Quando a ação é bem sucedida, temos acesso ao valor retornado da ação, através da função then e erros através da função catch. Apesar de $http suportar as funções success e error, por baixo dos panos uma promise é utilizada.
+
+Trabalhar com o pattern promise não é exclusividade do Angular, podemos implementá-lo em nosso código. Para isso, o Angular possui o serviço $q, especializado na criação de promises. 
+
+
+function exibe(texto) {
+    return $q(function(resolve, reject) {
+
+        // simulando ação assíncrona com setTimeout
+
+        setTimeout(function() {
+            if(texto == 'Alura') {
+                resolve('resolvida');
+            } else {
+                reject('rejeitada')
+            }
+        }, 5000);
+    });    
+}
+
+// executando nossa promise
+
+exibe('Alura').then(function(resultado) {
+    console.log(resultado);
+}).catch(function(erro) {
+    console.log(erro);
+});
+console.log('FIM');
+O código acima é funcional, sendo assim, o que será exibido no console é:
+
+
+Perfeito! Uma promisse é executada de maneira assíncrona, o que vale dizer que ela não bloqueia a continuidade da execução até que sua resposta seja gerada. Logo, nossa função solicita que a promessa seja "cumprida" e segue para a impressão de FIM. Quando a promessa de fato retornar uma resposta, aí sim o programa imprime, nesse caso, resolvida.
