@@ -1,0 +1,171 @@
+OBS:  o ideal é que o COntroller não manipule o DOM.
+
+OBS:  uma diretiva permite a mnipulação de DOM, pois é uma parte Isolada da aplicação e não irá impactor outras 
+partes.
+
+DDO = scope
+DDO restrict
+
+Jqlite e AngularJS ?
+
+
+Utlizando muitos $watch a pagina tende a ficar lenta.
+
+______________________________________________________________________________
+
+DIRETIVAS:
+
+Usamos @ quando queremos realizar uma cópia do valor passado para a diretiva no HTML para dentro do
+ escopo isolado na diretiva. Essa cópia é sempre um valor em string.
+
+Usamos & geralmente quando queremos executar dentro de uma diretiva uma função que pertence a um 
+escopo pai, o de um controller.
+
+Usamos = quando queremos que tanto a diretiva quanto o controller acessem o mesmo dado, isto é, 
+qualquer alteração no escopo privado da diretiva afetará a propriedade do controller e qualquer 
+alteração nesta propriedade no controller afetará a diretiva. Temos aqui uma comunicação bidirecional.
+
+
+______________________________________________________________________________
+
+
+Partindo do pressuposto que já temos o módulo puzzle criado, temos a seguinte diretiva em uso:
+
+<div ng-controller="CharadaController">
+      <minha-charada titulo="{{titulo}}" ></minha-charada>
+</div>
+O controller:
+
+     angular.module('puzzle').controller('CharadaController', function($scope) {
+           $scope.titulo = "Alura";
+     });
+Agora nossa diretiva:
+
+   angular.module('puzzle').directive('minhaCharada', function() {
+       var ddo = {};
+       ddo.restrict = 'E';
+       ddo.scope = {
+            titulo: '@'
+       };
+       ddo.template = '<p>{{titulo}}</p>';
+       return ddo;
+   });
+Qual será o resultado do processamento da diretiva:
+
+<div ng-controller="CharadaController">
+      <minha-charada titulo="{{titulo}}" ></minha-charada>
+</div>
+
+
+->
+
+Será exibido para o usuário o texto Alura
+
+
+Perfeito! Todo código é funcional e o que será exibido para o usuário será o texto Alura.
+
+* Deve ser realizada em diretivas, pois o código que manipula o DOM ficará separado do código de um 
+controller ou de um serviço. Como nem o controller nem o serviço manipulam DOM, tornam-se mais fáceis
+ de compreender e de testar em seu framework de teste favorito.
+
+
+
+
+ ______________________________________________________________________________
+
+
+
+
+ O treinamento contribuiu com uma visão geral sobre diretivas, porém não deixamos de aprender bastante coisa, inclusive truques. Pode ser que tenha passado na sua cabeça a seguinte pergunta: como criar diretivas que busquem dados do servidor e utilizem esses dados? Pergunta justa, não? Muito bem, se você fez todos os exercícios até agora, merece esse bônus, vamos lá!
+
+Vamos criar uma diretiva chamada meusTitulos. Essa diretiva buscará fotos do servidor e montará uma lista com apenas os títulos dessas fotos. Vamos alterar public/js/directives/minhas-diretivas.js:
+
+angular.module('minhasDiretivas', [])
+    // diretivas anteriores omitidas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        return ddo;
+    });
+Até aqui, nenhuma novidade. Precisamos agora elaborar o código que busca as fotos do servidor. Para isso, precisaremos de recursoFoto, mas como? Sabemos que ele é um artefato injetável em controllers em serviços, mas em diretivas? A solução mora na propriedade controller do nosso ddo:
+
+angular.module('minhasDiretivas', [])
+    // diretivas anteriores comentadas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        ddo.controller = function($scope, recursoFoto) {
+        };
+        return ddo;
+    });
+A propriedade controller permite passarmos uma função que permite termos acesso aos injetáveis do Angular, como $scope e recursoFoto. Há outros elementos exclusivos que não abordaremos aqui. Você deve estar se perguntando: ok, você me convenceu, mas como recursoFoto foi injetado se não temos o módulo meusServicos como dependência de minhasDiretivas? Resposta elementar caro aluno: nosso módulo principal da aplicação já carrega o módulo meusServicos, inclusive o módulo minhasDiretivas, por isso recursoFoto é injetável. Porém, fica mais bonito declarar explicitamente essa dependência em nosso módulo, sem efeito colateral algum.
+
+Agora, basta buscarmos nossas fotos e adicionarmos o resultado em $scope.titulos. Veja que acessamos esta propriedade através da diretiva ng-repeat do nosso template:
+
+// explicitei a dependência do módulo `meusServicos`
+angular.module('minhasDiretivas', ['meusServicos'])
+    // diretivas anteriores comentadas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        ddo.controller = function($scope, recursoFoto) {
+            recursoFoto.query(function(fotos) {
+                $scope.titulos = fotos; // ainda não é isso que queremos!
+            });
+        };
+        return ddo;
+    });
+Espere um pouco, $scope.titulos está recebendo a lista de fotos, não queremos isso! Queremos é uma lista de títulos. Que tal um pouquinho de JavaScript do "bem" para nos ajudar na tarefa de criar uma nova lista a partir de outra? Vamos usar a função .map:
+
+angular.module('minhasDiretivas', ['meusServicos'])
+    // diretivas anteriores comentadas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        ddo.controller = function($scope, recursoFoto) {
+            recursoFoto.query(function(fotos) {
+                $scope.titulos = fotos.map(function(foto) {
+                    return foto.titulo;
+                });    
+            });
+        };
+        return ddo;
+    });
+A função map itera sobre nossa lista fornecendo acesso ao elemento da iteração no seu parâmetro. Poderia ser qualquer nome, mas nada mais justo chamarmos de foto, já que estamos iterando sobre uma lista de fotos. Para cada foto retornamos seu titulo, isto é, no final da iteração teremos uma nova lista, mas de títulos apenas.
+
+Muito bem, agora é só utilizarmos nossa diretiva. Para não bagunçar nosso projeto, vamos adicioná-la como último elemento da parcial `principal.html', assim:
+
+<meus-titulos></meus-titulos>
+Recarregue a página principal da aplicação e veja o resultado. Uma simples lista com os títulos de nossas fotos deve ser exibida no final da página. Imagine as possibilidades que essa abordagem abre! Como diz o ditado, "grandes poderes trazem grandes responsabilidades".
+
+
+
+______________________________________________________________________________
+
+
+
+annotation system:  um sistema de anotação que permite dizer o que deve ser injetado para cada parâmetro do controller. Pois 
+na minificação os nomes são trocados por outros nomes com menor tamanho.
+
+
+EXEMPLO: 
+
+Este controller :
+
+angular.module('alurapic')
+    .controller('FotoController', function($scope, recursoFoto, $routeParams, cadastroDeFotos) {
+            // código omitido
+    });
+Vira:
+
+angular.module('alurapic')
+    .controller('FotoController', ['$scope', 'recursoFoto', '$routeParams', 'cadastroDeFotos'], function($scope, recursoFoto, $routeParams, cadastroDeFotos) {
+            // código omitido
+    }]);
+Veja que o segundo parâmetro do controller é um array que recebe primeiro todos os artefatos que o controller do Angular receberá e por último a função que define o controller. O processo de minificação jamais tocará nos dados do array e o Angular segue a convenção que o primeiro parâmetro do array será injetado como primeiro parâmetro da função do controller. Se o nome do parâmetro da função do controller muda, tudo continuará funcionando.
+
+Devido ao grande volume de JavaScript carregado nas nossas páginas, as vezes nossa performance e uso de banda ficam prejudicados ao usar um framework js para Single Page Applications (SPA's). Daí a necessidade de usar técnicas de compressão de arquivos como citado no exercício. O pessoal mais ligado à performance web geralmente critica o uso dessas ferramentas, mas algumas técnicas para minimizar esse inconveniente vêm sendo cada vez mais usadas.
