@@ -1,0 +1,60 @@
+template e templateUrl: insere o template na Diretiva.
+
+Como criar uma diretiva: 
+
+Localizar um modulo e registrar uma diretiva.
+exemplo: 
+angualar.module('nomemodulo).directive('nomeDiretiva', function(){
+
+    return {
+        //propriedades
+    };
+});
+
+___________________________________________________________________
+
+templateUrl: relacionar o codigo HTML.
+
+restric: restrições para uso das diretivas:
+
+A - atributo de elemento ()
+exemplo: <div diretiva> </div>
+
+E - elemento ()
+exemplo: <diretiva></diretiva>
+
+C classe de elemento ()
+exemplo:  <div class='diretiva'> </div>
+
+M - comentário do elemento ()
+exemplo: <!-- directive: alert-->
+
+Possiu seu próprio Scope.
+
+$id: mostra o ID de casa elemento.
+
+Exemplo passagem de parametro:
+
+<ui-alert title= "texto"></ui-alert>
+
+angualar.module('nomemodulo).directive('nomeDiretiva', function(){
+
+    return {
+        //propriedades
+        scope: {
+            topic =  'title' ou title  = 'title' ou se forem iguais title = '@'
+        },
+        transclude = true
+    };
+});
+
+
+@ - vincula o valor do atributo diretamento com uma propriedade do scope diretiva.
+
+= - bi-direcional entre a propriedade do scope do template a uma propriedade do scope da diretiva.
+
+transclude: encapsular elementos dentro de uma diretiva.
+
+link:  A chave de link da diretiva AngularJS define a função de link para a diretiva
+--  A função de link também é responsável por registrar os ouvintes do DOM, bem como atualizar o DOM . É executado após a clonagem do modelo.
+

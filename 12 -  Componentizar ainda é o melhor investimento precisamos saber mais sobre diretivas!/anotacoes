@@ -6,7 +6,7 @@ partes.
 DDO = scope
 DDO restrict
 
-Jqlite e AngularJS ?
+
 
 
 Utlizando muitos $watch a pagina tende a ficar lenta.

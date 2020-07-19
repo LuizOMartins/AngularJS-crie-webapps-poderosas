@@ -1,2 +1,8 @@
 Criando serviço no angular.
 
+Service é o objeto usado para organizar e/ou compartilhar estados de objetos e as regras de negócio da aplicação. Ele é singleton, ou seja, há apenas uma instância disponível durante a vida útil da aplicação. 
+
+
+Há três maneiras de se criar um serviço (factory, service e provider), recomendo que leia no stackoverflow a explicação dada por um usuário sobre as diferenças entre esses tipos.
+- : https://stackoverflow.com/questions/15666048/angularjs-service-vs-provider-vs-factory
+
