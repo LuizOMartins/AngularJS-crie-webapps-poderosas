@@ -53,7 +53,6 @@ function DminhaFoto(){
         url: '@',
         titulo: '@'
     };
-
     ddo.template = '<img class="img-responsive center-block" src="{{url}}" alt="{{titulo}}">';
 
     return ddo;

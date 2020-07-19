@@ -1,0 +1,18 @@
+angular.module('app', [
+  'app.directives',
+  'app.filters',
+  'app.controllers',
+  'app.services',
+  'myMapSubModule'
+]);
+
+angular
+    .module('app', ['ngRoute'])
+    .controller('SomeController', SomeController)
+    .factory('someFactory', someFactory);
+
+function SomeController() { }
+
+function someFactory() { }
+
+referências: https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md
