@@ -31,7 +31,8 @@ Exemplo:
 Uma função criada no contexto de uma expressão também é uma expressão de função. Por exemplo:
 
 (function () { /* código */ });
-A principal coisa sobre expressões JavaScript é que elas retornam valores. Em ambos os casos, acima do valor de retorno da expressão é a função.
+A principal coisa sobre expressões JavaScript é que elas retornam valores. Em ambos os casos, 
+acima do valor de retorno da expressão é a função.
 
 Isso significa que, se quisermos invocar a expressão de função imediatamente, 
 precisamos apenas colocar alguns parênteses no final. O que nos traz de volta ao primeiro trecho de código

@@ -1,0 +1,39 @@
+Excesso de interação com a DOM: problema.
+
+Digest Cycle: ciclo do angularJS
+
+o Clico de wachtrs, verificar os itens que precisam ser alterados 
+exemplo: ng-model. 
+-> esses Wachtrs são chamados várias vazes. Angular Expressions são Watchers.
+> é a forma como as angular expressions funcionam.
+
+-Uma forma de resolver é criar uma função init para fzr determinado calculo que seri preciso.
+- assim não é chamado a função e sim é criado uma função para inicializar os valores.
+
+-> reduzir as chamadas de funcões com diretivas angular, sempre que possivel remove-las e se possivel associar
+a outro tipo de evento.
+
+-> versão do angular.
+
+Onetime binding: carrega o valor apenas uma vez (uma primeira vez)
+COmo usar:
+{{::valor}}
+
+
+
+AngularJS Batarang: faz uma analise da tela.
+
+
+ng-model-options: 
+- parametros para setar as notificações
+
+
+track by:
+quando usar ng-repat e ng-options
+
+
+trocar Filter por alterações no Controller.
+
+Pense bem antes de usar ng-if ou ng-show
+
+concluir parte 2: https://www.youtube.com/watch?v=oUus56DtpO0&list=PLQCmSnNFVYnTD5p2fR4EXmtlR6jQJMbPb&index=17
